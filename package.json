@@ -1,0 +1,11 @@
+{
+  "name": "getmeformdata",
+  "version": "1.0.0",
+  "description": "To get the form data and validations data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "anenth",
+  "license": "ISC"
+}
