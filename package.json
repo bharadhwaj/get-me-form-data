@@ -4,8 +4,49 @@
   "description": "To get the form data and validations data",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "anenth",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "form-serialize": "^0.7.2"
+  },
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=8"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "babel-plugin-flow-runtime": "^0.17.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-flow": "^6.23.0",
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-flowtype": "^3.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "flow": "^0.2.3",
+    "flow-bin": "^0.84.0",
+    "flow-runtime": "^0.17.0",
+    "flow-typed": "^2.5.1",
+    "jest": "^23.6.0",
+    "prettier": "^1.14.3",
+    "regenerator-runtime": "^0.12.1"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  }
 }
