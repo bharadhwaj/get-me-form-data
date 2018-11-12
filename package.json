@@ -9,7 +9,8 @@
   "author": "anenth",
   "license": "ISC",
   "dependencies": {
-    "form-serialize": "^0.7.2"
+    "form-serialize": "^0.7.2",
+    "lodash": "^4.17.11"
   },
   "files": [
     "index.js"
@@ -36,17 +37,5 @@
     "jest": "^23.6.0",
     "prettier": "^1.14.3",
     "regenerator-runtime": "^0.12.1"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json"
-    ],
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    }
   }
 }
