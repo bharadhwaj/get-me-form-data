@@ -9,7 +9,8 @@
   "author": "anenth",
   "license": "ISC",
   "dependencies": {
-    "form-serialize": "^0.7.2"
+    "form-serialize": "^0.7.2",
+    "lodash": "^4.17.11"
   },
   "files": [
     "index.js"

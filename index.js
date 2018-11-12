@@ -1,6 +1,11 @@
 /* @flow */
 
 import formSerialize from 'form-serialize';
+import { isEmpty, isNumber, isFunction, reduce, isString } from 'lodash';
+
+export const TEXT = {
+  REQUIRED: 'This is required'
+};
 
 function getSpecTypeValue(key, value, specType: 'date' | 'boolean' | 'text') {
   switch (specType) {
@@ -16,7 +21,7 @@ function getSpecTypeValue(key, value, specType: 'date' | 'boolean' | 'text') {
 
 export function getFormDataWithSpec(serializedData: {}, formSpec: {}) {
   return Object.keys(serializedData).reduce((result, dataKey) => {
-    const specType = formSpec[dataKey];
+    const specType = formSpec[dataKey] && formSpec[dataKey].type;
     const dataValue = serializedData[dataKey];
     return {
       ...result,
@@ -27,23 +32,27 @@ export function getFormDataWithSpec(serializedData: {}, formSpec: {}) {
   }, {});
 }
 
-export default function getMeFormData($form: HTMLFormElement, formSpec: {}) {
-  const serializedData = formSerialize($form, { hash: true, empty: true });
-  const dataWithSpec = getFormDataWithSpec(serializedData, formSpec);
-  return dataWithSpec;
+function hasValue(value) {
+  if (!value) return false;
+  if (isNumber(value)) return true;
+
+  if (!isEmpty(value)) return true;
+
+  return false;
 }
 
 const validatorFunctions = {
   required: value => hasValue(value)
 };
+
 /**
- * validateFormData - Function to check for validation errors in the form_data
- * form_data: {key:value}
- * validation_config: {
+ * validateFormData - Function to check for validation errors in the formData
+ * formData: {key:value}
+ * validationConfig: {
  *     field_name: {
  *         validator: String | Function ,
  *         message: String | Function,
- *         related_field: String - used only when using validator as function
+ *         relatedField: String - used only when using validator as function
  *     }
  * }
  *
@@ -51,35 +60,28 @@ const validatorFunctions = {
  * Validator function should only return boolean values
  *
  * **/
-export function validateFormData(form_data: any, validation_config: any): {} {
+
+export function validateFormData(formData: any, validationConfig: any): {} {
   return reduce(
-    validation_config,
-    (result, { validator, message, related_field }, key) => {
+    validationConfig,
+    (result, { validator, message, relatedField }, key) => {
       const isValidatorAFunction = isFunction(validator);
       const isMessageAFunction = isFunction(message);
 
-      const field_data = form_data && form_data[key];
-      let validation_message = message;
-      let is_valid;
+      const fieldData = formData && formData[key];
+      let isValid;
 
       if (isValidatorAFunction) {
-        is_valid = validator(field_data, form_data[related_field]);
-        //TODO: refactor this, is_valid should be always boolean
-        if (isString(is_valid) && !isEmpty(is_valid)) {
-          validation_message = is_valid;
-          is_valid = false;
-        }
-        //    Predefined validator functions
+        isValid = validator(fieldData, formData[relatedField]);
       } else {
-        is_valid = validatorFunctions[validator](field_data);
+        isValid = validatorFunctions[validator](fieldData);
       }
 
-      if (!is_valid)
+      if (!isValid)
         return {
           ...result,
           [key]:
-            (isMessageAFunction ? message(field_data) : validation_message) ||
-            FORM_TEXT.REQUIRED
+            (isMessageAFunction ? message(fieldData) : message) || TEXT.REQUIRED
         };
 
       return result;
@@ -96,9 +98,9 @@ function getDateAsNumberValue(key, value) {
   return value;
 }
 
-export function getFormDataWithDateAsNumber(serialized_data: {}) {
+export function getFormDataWithDateAsNumber(serializedData: {}) {
   return reduce(
-    serialized_data,
+    serializedData,
     (result, value, key) => {
       return {
         ...result,
@@ -109,11 +111,13 @@ export function getFormDataWithDateAsNumber(serialized_data: {}) {
   );
 }
 
-export function getFormData($form: any) {
-  const serialized_data = serialize($form, { hash: true });
-  const serialized_data_with_date_as_number = getFormDataWithDateAsNumber(
-    serialized_data
-  );
+export default function getMeFormData($form: HTMLFormElement, formSpec: {}) {
+  const serializedData = formSerialize($form, { hash: true, empty: true });
+  const dataWithSpec = getFormDataWithSpec(serializedData, formSpec);
+  const errors = validateFormData(dataWithSpec, formSpec);
 
-  return serialized_data_with_date_as_number;
+  return {
+    data: dataWithSpec,
+    errors
+  };
 }
