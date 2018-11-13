@@ -2,7 +2,8 @@
   "name": "getmeformdata",
   "version": "1.0.0",
   "description": "To get the form data and validations data",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "source": "src/index.js",
   "repository": "github:anenth/get-me-form-data",
   "scripts": {
     "test": "jest"
