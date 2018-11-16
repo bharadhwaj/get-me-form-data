@@ -6,7 +6,10 @@ module.exports = {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js'
+    filename: 'main.js',
+    library: 'getMeFormData',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   optimization: {
     minimizer: [
