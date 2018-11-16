@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash';
-import { getFormDataWithSpec, validateFormData, TEXT } from '../index';
+import { getFormDataWithSpec, validateFormData, TEXT } from '../src/index';
 
 describe('getFormDataWithSpec', () => {
   it('should the data for date', () => {

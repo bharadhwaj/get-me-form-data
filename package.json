@@ -1,10 +1,13 @@
 {
   "name": "getmeformdata",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "To get the form data and validations data",
-  "main": "index.js",
+  "main": "dist/main.js",
+  "source": "src/index.js",
+  "repository": "github:anenth/get-me-form-data",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "cross-env BABEL_ENV='production' webpack --env.production --config ./webpack.config.js"
   },
   "author": "anenth",
   "license": "ISC",
@@ -22,9 +25,12 @@
     "babel": "^6.23.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
+    "babel-loader": "^7.1.5",
     "babel-plugin-flow-runtime": "^0.17.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-flow": "^6.23.0",
+    "cross-env": "^5.2.0",
     "eslint": "^5.7.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",
@@ -36,6 +42,9 @@
     "flow-typed": "^2.5.1",
     "jest": "^23.6.0",
     "prettier": "^1.14.3",
-    "regenerator-runtime": "^0.12.1"
+    "regenerator-runtime": "^0.12.1",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
   }
 }
