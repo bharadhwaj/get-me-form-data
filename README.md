@@ -1,5 +1,8 @@
 # get-me-form-data
 
+[![Build Status](https://travis-ci.org/Anenth/get-me-form-data.svg?branch=master)](https://travis-ci.org/Anenth/get-me-form-data)
+[![npm version](https://badge.fury.io/js/getmeformdata.svg)](https://badge.fury.io/js/getmeformdata)
+
 Tiny function to get the form data and validate it.
 
 ### Install
