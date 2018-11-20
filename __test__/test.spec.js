@@ -2,7 +2,14 @@ import { isEmpty } from 'lodash';
 import { getFormDataWithSpec, validateFormData, TEXT } from '../src/index';
 
 describe('getFormDataWithSpec', () => {
-  it('should the data for date', () => {
+  it('should handle when spec is passed to the getFormDataWithSpec', () => {
+    const data = getFormDataWithSpec({
+      myDate: '11111'
+    });
+    expect(data).toEqual({ myDate: '11111' });
+  });
+
+  it('should handle data for date', () => {
     const data = getFormDataWithSpec(
       {
         myDate: '11111'
@@ -16,7 +23,7 @@ describe('getFormDataWithSpec', () => {
     expect(data).toEqual({ myDate: 11111 });
   });
 
-  it('should the data for date', () => {
+  it('should handle data for boolean fields', () => {
     const data = getFormDataWithSpec(
       {
         myCheckbox: 'on'
@@ -32,6 +39,15 @@ describe('getFormDataWithSpec', () => {
 });
 
 describe('validateFormData', () => {
+  it('should handle empty validator', () => {
+    const formData = {
+      missing_placeholders: ['a'],
+      name: 'Hello'
+    };
+
+    expect(validateFormData(formData)).toEqual({});
+  });
+
   it('should return errors for the form', () => {
     const validatorConfig = {
       missing_placeholders: {

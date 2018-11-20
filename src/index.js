@@ -19,7 +19,7 @@ function getSpecTypeValue(key, value, specType: 'date' | 'boolean' | 'text') {
   }
 }
 
-export function getFormDataWithSpec(serializedData: {}, formSpec: {}) {
+export function getFormDataWithSpec(serializedData: {}, formSpec: {} = {}) {
   return Object.keys(serializedData).reduce((result, dataKey) => {
     const specType = formSpec[dataKey] && formSpec[dataKey].type;
     const dataValue = serializedData[dataKey];
@@ -111,7 +111,10 @@ export function getFormDataWithDateAsNumber(serializedData: {}) {
   );
 }
 
-export default function getMeFormData($form: HTMLFormElement, formSpec: {}) {
+export default function getMeFormData(
+  $form: HTMLFormElement,
+  formSpec: {} = {}
+) {
   const serializedData = formSerialize($form, { hash: true, empty: true });
   const dataWithSpec = getFormDataWithSpec(serializedData, formSpec);
   const errors = validateFormData(dataWithSpec, formSpec);
