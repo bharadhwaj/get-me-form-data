@@ -9,7 +9,7 @@ https://codesandbox.io/s/vmv90nno45
 ### Install
 
 ```javascript
-npm install getmeformdate --save
+npm install getmeformdata --save
 ```
 
 #### Usage
