@@ -1,6 +1,6 @@
 {
   "name": "getmeformdata",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "To get the form data and validations data",
   "main": "dist/main.js",
   "source": "src/index.js",
