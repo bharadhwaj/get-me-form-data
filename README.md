@@ -46,3 +46,9 @@ function handleOnSubmit(e) {
 </form>
 }
 ```
+
+
+#### Publishing
+- npm run build
+- npm version patch -m "message" 
+- npm publish --access public
