@@ -18,6 +18,9 @@ npm install getmeformdata --save
 const formSpec = {
     name: {
         validator: 'required'
+    },
+    checkbox: {
+      type: 'boolean'
     }
 };
 

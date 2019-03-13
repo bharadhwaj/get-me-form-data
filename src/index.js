@@ -74,7 +74,7 @@ export function validateFormData(formData: any, validationConfig: any): {} {
       if (isValidatorAFunction) {
         isValid = validator(fieldData, formData[relatedField]);
       } else {
-        isValid = validatorFunctions[validator](fieldData);
+        isValid = validator ? validatorFunctions[validator](fieldData) : true;
       }
 
       if (!isValid)

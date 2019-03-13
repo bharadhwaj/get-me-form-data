@@ -26,7 +26,9 @@ describe('getFormDataWithSpec', () => {
   it('should handle data for boolean fields', () => {
     const data = getFormDataWithSpec(
       {
-        myCheckbox: 'on'
+        myCheckbox: 'on',
+        name: 'hello',
+        test: ''
       },
       {
         myCheckbox: {
