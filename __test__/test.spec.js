@@ -26,9 +26,7 @@ describe('getFormDataWithSpec', () => {
   it('should handle data for boolean fields', () => {
     const data = getFormDataWithSpec(
       {
-        myCheckbox: 'on',
-        name: 'hello',
-        test: ''
+        myCheckbox: 'on'
       },
       {
         myCheckbox: {
@@ -106,6 +104,15 @@ describe('validateFormData', () => {
       }
     };
 
+    expect(validateFormData({ date: 12 }, validatorConfig)).toEqual({});
+  });
+
+  it('should handle data with validator', () => {
+    const validatorConfig = {
+      date: {
+        type: 'boolean'
+      }
+    };
     expect(validateFormData({ date: 12 }, validatorConfig)).toEqual({});
   });
 });
