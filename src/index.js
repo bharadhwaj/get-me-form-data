@@ -12,7 +12,7 @@ function getSpecTypeValue(key, value, specType: 'date' | 'boolean' | 'text') {
     case 'date':
       return Number(value);
     case 'boolean':
-      return value === 'on';
+      return value === 'on' || value === 'true';
 
     default:
       return value;

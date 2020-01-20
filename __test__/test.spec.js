@@ -23,7 +23,7 @@ describe('getFormDataWithSpec', () => {
     expect(data).toEqual({ myDate: 11111 });
   });
 
-  it('should handle data for boolean fields', () => {
+  it('should handle data for boolean fields for checkbox', () => {
     const data = getFormDataWithSpec(
       {
         myCheckbox: 'on'
@@ -35,6 +35,20 @@ describe('getFormDataWithSpec', () => {
       }
     );
     expect(data).toEqual({ myCheckbox: true });
+  });
+
+  it('should handle data for boolean fields for string value "true" ', () => {
+    const data = getFormDataWithSpec(
+      {
+        mySelectOption: 'true'
+      },
+      {
+        mySelectOption: {
+          type: 'boolean'
+        }
+      }
+    );
+    expect(data).toEqual({ mySelectOption: true });
   });
 });
 
