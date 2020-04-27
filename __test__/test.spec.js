@@ -50,6 +50,33 @@ describe('getFormDataWithSpec', () => {
     );
     expect(data).toEqual({ mySelectOption: true });
   });
+
+  it('should convert all the spec_type with date to number inside a array', () => {
+    const innerFormArray = [];
+    innerFormArray[40] = '123132312';
+
+    expect(
+      getFormDataWithSpec(
+        {
+          yooo: 'ss',
+          inner_form: {
+            'yo-date': '123132312',
+          },
+          inner_form_array: innerFormArray,
+        },
+        { inner_form: { 'yo-date': 'date' }, inner_form_array: { 40: 'date' } },
+      ),
+    ).toEqual({
+      yooo: 'ss',
+      inner_form: {
+        'yo-date': 123132312,
+      },
+      inner_form_array: {
+        // Yes we convert the array to object, As the retrieval from array or object will be the same
+        40: 123132312,
+      },
+    });
+  });
 });
 
 describe('validateFormData', () => {

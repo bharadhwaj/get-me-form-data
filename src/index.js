@@ -20,9 +20,18 @@ function getSpecTypeValue(key, value, specType: 'date' | 'boolean' | 'text') {
 }
 
 export function getFormDataWithSpec(serializedData: {}, formSpec: {} = {}) {
+
   return Object.keys(serializedData).reduce((result, dataKey) => {
     const specType = formSpec[dataKey] && formSpec[dataKey].type;
     const dataValue = serializedData[dataKey];
+
+    if (specType && !isString(specType)) { // If the specType is json then handle inner
+      return {
+        ...result,
+        [dataKey]: getFormDataWithSpec(dataValue, specType),
+      };
+    }
+
     return {
       ...result,
       [dataKey]: specType
