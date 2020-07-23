@@ -1,5 +1,21 @@
 import { isEmpty } from 'lodash';
+import { getSpecTypeValue } from '../src';
 import { getFormDataWithSpec, validateFormData, TEXT } from '../src/index';
+
+describe('getSpecTypeValue', () => {
+  it('should return true for string value "true" when type is boolean', () => {
+    expect(getSpecTypeValue('true', 'boolean')).toEqual(true);
+  });
+  it('should return true for string value "false" when type is boolean', () => {
+    expect(getSpecTypeValue('false', 'boolean')).toEqual(false);
+  });
+  it('should return true from string value "on" when type is boolean', () => {
+    expect(getSpecTypeValue('on', 'boolean')).toEqual(true);
+  });
+  it('should return false from string value "off" when type is boolean', () => {
+    expect(getSpecTypeValue('off', 'boolean')).toEqual(false);
+  });
+});
 
 describe('getFormDataWithSpec', () => {
   it('should handle when spec is passed to the getFormDataWithSpec', () => {
