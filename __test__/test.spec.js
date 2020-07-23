@@ -67,7 +67,32 @@ describe('getFormDataWithSpec', () => {
     expect(data).toEqual({ mySelectOption: true });
   });
 
-  it('should convert all the spec_type with date to number inside a array', () => {
+  xit('should convert all the spec_type with date to number inside an object', () => {
+    expect(
+      getFormDataWithSpec(
+        {
+          yooo: 'ss',
+          inner_form: {
+            'yo-date': '123132312'
+          },
+          inner_form_2: {
+            40: '123132312'
+          }
+        },
+        { inner_form: { 'yo-date': 'date' }, inner_form_2: { 40: 'date' } }
+      )
+    ).toEqual({
+      yooo: 'ss',
+      inner_form: {
+        'yo-date': 123132312,
+      },
+      inner_form_2: {
+        40: 123132312
+      }
+    });
+  });
+
+  xit('should convert all the spec_type with date to number inside a array with undefined items', () => {
     const innerFormArray = [];
     innerFormArray[40] = '123132312';
 
@@ -76,21 +101,21 @@ describe('getFormDataWithSpec', () => {
         {
           yooo: 'ss',
           inner_form: {
-            'yo-date': '123132312',
+            'yo-date': '123132312'
           },
-          inner_form_array: innerFormArray,
+          inner_form_array: innerFormArray
         },
-        { inner_form: { 'yo-date': 'date' }, inner_form_array: { 40: 'date' } },
-      ),
+        { inner_form: { 'yo-date': 'date' }, inner_form_array: { 40: 'date' } }
+      )
     ).toEqual({
       yooo: 'ss',
       inner_form: {
-        'yo-date': 123132312,
+        'yo-date': 123132312
       },
       inner_form_array: {
         // Yes we convert the array to object, As the retrieval from array or object will be the same
-        40: 123132312,
-      },
+        40: 123132312
+      }
     });
   });
 });

@@ -24,13 +24,13 @@ export function getFormDataWithSpec(serializedData: {}, formSpec: {} = {}) {
     const specType = formSpec[dataKey] && formSpec[dataKey].type;
     const dataValue = serializedData[dataKey];
 
-    if (specType && !isString(specType)) {
-      // If the specType is json then handle inner
-      return {
-        ...result,
-        [dataKey]: getFormDataWithSpec(dataValue, specType)
-      };
-    }
+    // if (!specType && !isString(formSpec[dataKey])) {
+    //   If the specType is json then handle inner
+      // return {
+      //   ...result,
+      //   [dataKey]: getFormDataWithSpec(dataValue, specType)
+      // };
+    // }
 
     return {
       ...result,
