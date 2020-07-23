@@ -1,5 +1,21 @@
 import { isEmpty } from 'lodash';
+import { getSpecTypeValue } from '../src';
 import { getFormDataWithSpec, validateFormData, TEXT } from '../src/index';
+
+describe('getSpecTypeValue', () => {
+  it('should return true for string value "true" when type is boolean', () => {
+    expect(getSpecTypeValue('true', 'boolean')).toEqual(true);
+  });
+  it('should return true for string value "false" when type is boolean', () => {
+    expect(getSpecTypeValue('false', 'boolean')).toEqual(false);
+  });
+  it('should return true from string value "on" when type is boolean', () => {
+    expect(getSpecTypeValue('on', 'boolean')).toEqual(true);
+  });
+  it('should return false from string value "off" when type is boolean', () => {
+    expect(getSpecTypeValue('off', 'boolean')).toEqual(false);
+  });
+});
 
 describe('getFormDataWithSpec', () => {
   it('should handle when spec is passed to the getFormDataWithSpec', () => {
@@ -49,6 +65,58 @@ describe('getFormDataWithSpec', () => {
       }
     );
     expect(data).toEqual({ mySelectOption: true });
+  });
+
+  xit('should convert all the spec_type with date to number inside an object', () => {
+    expect(
+      getFormDataWithSpec(
+        {
+          yooo: 'ss',
+          inner_form: {
+            'yo-date': '123132312'
+          },
+          inner_form_2: {
+            40: '123132312'
+          }
+        },
+        { inner_form: { 'yo-date': 'date' }, inner_form_2: { 40: 'date' } }
+      )
+    ).toEqual({
+      yooo: 'ss',
+      inner_form: {
+        'yo-date': 123132312,
+      },
+      inner_form_2: {
+        40: 123132312
+      }
+    });
+  });
+
+  xit('should convert all the spec_type with date to number inside a array with undefined items', () => {
+    const innerFormArray = [];
+    innerFormArray[40] = '123132312';
+
+    expect(
+      getFormDataWithSpec(
+        {
+          yooo: 'ss',
+          inner_form: {
+            'yo-date': '123132312'
+          },
+          inner_form_array: innerFormArray
+        },
+        { inner_form: { 'yo-date': 'date' }, inner_form_array: { 40: 'date' } }
+      )
+    ).toEqual({
+      yooo: 'ss',
+      inner_form: {
+        'yo-date': 123132312
+      },
+      inner_form_array: {
+        // Yes we convert the array to object, As the retrieval from array or object will be the same
+        40: 123132312
+      }
+    });
   });
 });
 

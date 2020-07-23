@@ -7,7 +7,7 @@ export const TEXT = {
   REQUIRED: 'This is required'
 };
 
-function getSpecTypeValue(key, value, specType: 'date' | 'boolean' | 'text') {
+export function getSpecTypeValue(value, specType: 'date' | 'boolean' | 'text') {
   switch (specType) {
     case 'date':
       return Number(value);
@@ -23,11 +23,18 @@ export function getFormDataWithSpec(serializedData: {}, formSpec: {} = {}) {
   return Object.keys(serializedData).reduce((result, dataKey) => {
     const specType = formSpec[dataKey] && formSpec[dataKey].type;
     const dataValue = serializedData[dataKey];
+
+    // if (!specType && !isString(formSpec[dataKey])) {
+    //   If the specType is json then handle inner
+      // return {
+      //   ...result,
+      //   [dataKey]: getFormDataWithSpec(dataValue, specType)
+      // };
+    // }
+
     return {
       ...result,
-      [dataKey]: specType
-        ? getSpecTypeValue(dataKey, dataValue, specType)
-        : dataValue
+      [dataKey]: specType ? getSpecTypeValue(dataValue, specType) : dataValue
     };
   }, {});
 }
@@ -111,9 +118,17 @@ export function getFormDataWithDateAsNumber(serializedData: {}) {
   );
 }
 
+type formSpecType = {
+  [inputName: string]: {
+    validator: 'required' | (inputValue: string) => boolean,  // One of validatorFunctions
+    message: string | (inputValue: string) => boolean,
+    relatedField: string;
+  };
+}
+
 export default function getMeFormData(
   $form: HTMLFormElement,
-  formSpec: {} = {}
+  formSpec: formSpecType = {}
 ) {
   const serializedData = formSerialize($form, { hash: true, empty: true });
   const dataWithSpec = getFormDataWithSpec(serializedData, formSpec);
