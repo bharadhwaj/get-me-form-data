@@ -7,12 +7,14 @@ export const TEXT = {
   REQUIRED: 'This is required'
 };
 
-export function getSpecTypeValue(value, specType: 'date' | 'boolean' | 'text') {
+export function getSpecTypeValue(value, specType: 'date' | 'number' | 'boolean' | 'text') {
   switch (specType) {
     case 'date':
       return Number(value);
     case 'boolean':
       return value === 'on' || value === 'true';
+    case 'number':
+      return +value;
 
     default:
       return value;
