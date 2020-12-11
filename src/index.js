@@ -11,10 +11,10 @@ export function getSpecTypeValue(value, specType: 'date' | 'number' | 'boolean' 
   switch (specType) {
     case 'date':
       return Number(value);
-    case 'boolean':
-      return value === 'on' || value === 'true';
     case 'number':
       return +value;
+    case 'boolean':
+      return value === 'on' || value === 'true';
 
     default:
       return value;
