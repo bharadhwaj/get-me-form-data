@@ -12,7 +12,7 @@ export function getSpecTypeValue(value, specType: 'date' | 'number' | 'boolean' 
     case 'date':
       return Number(value);
     case 'number':
-      return +value;
+      return Number(value);
     case 'boolean':
       return value === 'on' || value === 'true';
 
